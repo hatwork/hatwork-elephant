@@ -1,8 +1,6 @@
 <?php
 include_once 'common.php';
 
-$instid = isset ( $_GET ["inst"] ) ? $_GET ["inst"] : - 1;
-
 $options = "";
 $information = "";
 $message = "";
@@ -10,51 +8,24 @@ $conn = db_connect ();
 $institute = "No institute selected.";
 $instituteDropDown = "";
 
-$result = db_select ( $conn, "select institute_id, institute_name from institute" );
+$result = db_select ( $conn, "select * from course" );
 if (isset ( $result )) {
+	
 	$counter = 0;
-	$selected = "";
 	while ( $row = mysqli_fetch_row ( $result ) ) {
 		$id = $row [0];
 		$name = $row [1];
-		$selected = $id == $instid ? "selected" : "";
-		$instituteDropDown .= "<option value='$id' $selected>$name</option>";
+		$counter ++;
+		$options .= "<tr>
+		<td>$counter</td>
+		<td>$name</td>
+		<td><a href='schedule-list.php?course=$id'>List Schedules</a>&nbsp;|&nbsp;
+		<a href='schedule-create.php?course=$id'>Create Schedule</a>&nbsp;|&nbsp;
+		<a href='course-student.php?course=$id'>Add Students</a>
+		</td>
+		</tr>";
 	}
-}
-
-if ($instid == - 1) {
-	$options = "<tr><td colspan=3>No institute selected.</td></tr>";
-} else {
-
-	
-	/*
-	$result = db_select ( $conn, "select institute_name from institute WHERE institute_id = $instid" );
-	if (isset ( $result )) {
-		$row = mysqli_fetch_row ( $result );
-		$institute = $row [0];		
-	}
-	*/
-	
-	
-	$result = db_select ( $conn, "select * from course where course_institute_id = $instid" );
-	
-	if (isset ( $result )) {
-		
-		$counter = 0;
-		while ( $row = mysqli_fetch_row ( $result ) ) {
-			$id = $row [0];
-			$name = $row [2];
-			$counter ++;
-			$options .= "<tr>
-			<td>$counter</td>
-			<td>$name</td>
-			<td><a href='schedule-list.php?course=$id' class='btn btn-primary'>List Schedules</a> 
-			<a href='schedule-create.php?course=$id' class='btn btn-primary'>Create Schedule</a></td>
-			</tr>";
-		}
-	} else {
-	}
-}
+} 
 
 include_once 'page_header.php';
 ?>
@@ -73,19 +44,6 @@ include_once 'page_header.php';
 				</div>
 			</div>
 		<?php } ?>
-			<div class="form-group">
-				<label for="courseName" class="col-sm-3 control-label">Institute</label>
-				<div class="col-sm-6">
-					<select name="inst" class="form-control input-lg">
-						<option value="">Select...</option>
-						<?php echo $instituteDropDown;?>
-					</select>
-				</div>
-				<div class="col-sm-3">
-				<button type="submit"
-						class="btn btn-primary form-control input-lg">Change</button>
-				</div>		
-			</div>
 			<div class="form-group">
 				<div class="table-responsive">
 					<table class="table table-bordered">

@@ -44,14 +44,6 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" style="text-color: white">Institute<b
-							class="caret"></b>
-					</a>
-						<ul class="dropdown-menu">
-							<li><a href='institute-create.php'>Add</a></li>
-							<li><a href='institute-list.php'>List</a></li>
-						</ul></li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" style="text-color: white">Course<b
 							class="caret"></b>
 					</a>

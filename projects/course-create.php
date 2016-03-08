@@ -3,7 +3,6 @@ include_once 'common.php';
 
 $description = isset ( $_POST ["description"] ) ? $_POST ["description"] : "";
 $instName = isset ( $_POST ["instName"] ) ? $_POST ["instName"] : "";
-$instid = isset ( $_POST ["instid"] ) ? $_POST ["instid"] : "";
 $message = "";
 $instituteDropDown = "";
 
@@ -12,25 +11,12 @@ $method = $_SERVER ['REQUEST_METHOD'];
 if ($method === 'POST') {
 	$message = "Good";
 	
-	if ( db_update( $conn, "INSERT INTO course (course_institute_id, course_name, course_desc, course_status) VALUES ($instid , '$instName', '$description', 0)" ) ) {
+	if ( db_update( $conn, "INSERT INTO course (course_name, course_desc, course_status) VALUES ('$instName', '$description', 0)" ) ) {
 		$message = "Institute created successfully.";
 	} else {
 		$message = "System error: Try again.";
 	}
 
-}
-
-
-$result = db_select ( $conn, "select institute_id, institute_name from institute" );
-if (isset ( $result )) {
-	$counter = 0;
-	$selected = "";
-	while ( $row = mysqli_fetch_row ( $result ) ) {
-		$id = $row [0];
-		$name = $row [1];
-		$selected = $id == $instid ? "selected" : "";
-		$instituteDropDown .= "<option value='$id' $selected>$name</option>";
-	}
 }
 
 db_close($conn);
@@ -52,15 +38,6 @@ include_once 'page_header.php';
 					</div>
 			</div>
 			<?php } ?>
-			<div class="form-group">
-				<label for="instid" class="col-sm-4 control-label">Institute</label>
-				<div class="col-sm-8">
-					<select name="instid" class="form-control input-lg">
-						<option value="">Select...</option>
-						<?php echo $instituteDropDown;?>
-					</select>
-				</div>
-			</div>
 			<div class="form-group">
 				<label for="instName" class="col-sm-4 control-label">Course Name</label>
 				<div class="col-sm-8">

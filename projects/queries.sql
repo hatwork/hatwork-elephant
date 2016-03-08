@@ -13,29 +13,16 @@ CREATE TABLE `people` (
 INSERT INTO people (people_itsid,people_pwd,people_name,people_email, people_mobile, people_role) 
 VALUES (99999999, '99999999', 'Admin', 'admin@admin.com', 9999999999, 9);
 
-DROP TABLE IF EXISTS `institute`;
-CREATE TABLE `institute` (
-  `institute_id` bigint NOT NULL auto_increment,
-  `institute_name` varchar(250) NOT NULL default '0',
-  `institute_desc` text,
-  `institute_status` int(1) NOT NULL default 0,
-  PRIMARY KEY  (`institute_id`)
-) ENGINE=MyISAM auto_increment=100 ;
-
-INSERT INTO institute (institute_name,institute_desc, institute_status) 
-VALUES ('Institute', '', 0);
-
 DROP TABLE IF EXISTS `course`;
 CREATE TABLE `course` (
   `course_id` bigint NOT NULL auto_increment,
-  `course_institute_id` bigint,
   `course_name` varchar(250) NOT NULL default '0',
   `course_desc` text,
   `course_status` int(1) NOT NULL default 0,
   PRIMARY KEY  (`course_id`)
  ) ENGINE=MyISAM auto_increment=100 ;
 
-INSERT INTO course (course_name,course_institute_id, course_desc, course_status) VALUES ('Arabic Classes',100, '', 0);
+INSERT INTO course (course_name,course_desc, course_status) VALUES ('Arabic Classes','', 0);
 
 DROP TABLE IF EXISTS `course_schedule`;
 CREATE TABLE `course_schedule` (
@@ -77,3 +64,22 @@ CREATE TABLE `course_attendance` (
   PRIMARY KEY  (`course_attendance_id`)
 ) ENGINE=MyISAM auto_increment=100 ;
 
+
+
+
+
+/*
+
+DROP TABLE IF EXISTS `institute`;
+CREATE TABLE `institute` (
+  `institute_id` bigint NOT NULL auto_increment,
+  `institute_name` varchar(250) NOT NULL default '0',
+  `institute_desc` text,
+  `institute_status` int(1) NOT NULL default 0,
+  PRIMARY KEY  (`institute_id`)
+) ENGINE=MyISAM auto_increment=100 ;
+
+INSERT INTO institute (institute_name,institute_desc, institute_status) 
+VALUES ('Institute', '', 0);
+
+*/
