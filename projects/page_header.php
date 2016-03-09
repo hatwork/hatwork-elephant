@@ -52,6 +52,16 @@
 							<li><a href='course-list.php'>List</a></li>
 						</ul></li>
 				</ul>
+				<ul class="nav navbar-nav">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" style="text-color: white">Student<b
+							class="caret"></b>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href='student-create.php'>Add</a></li>
+							<li><a href='student-list.php'>List</a></li>
+						</ul></li>
+				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href='<?php echo $path->url_signout;?>'>Sign out</a></li>
 					<li><a href='<?php echo $path->url_signin; ?>'>Login</a></li>

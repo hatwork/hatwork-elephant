@@ -10,20 +10,18 @@ $scheduleVenue = isset ( $_POST ["scheduleVenue"] ) ? $_POST ["scheduleVenue"] :
 
 $message = "";
 
-$institute = "No institute selected.";
-$course = "";
+$course = "No couse selected";
 
 
 $conn = db_connect ();
-$result = db_select ( $conn, "SELECT i.institute_name, c.course_name 
-		FROM institute i, course c 
-		WHERE i.institute_id = c.course_institute_id AND c.course_id = $courseid" );
+$result = db_select ( $conn, "SELECT course_name 
+		FROM course 
+		WHERE course_id = $courseid" );
 if (isset ( $result )) {
 	$counter = 0;
 	$selected = "";
 	$row = mysqli_fetch_row ( $result );
-	$institute = $row [0];
-	$course = $row [1];
+	$course = $row [0];
 }
 
 $method = $_SERVER ['REQUEST_METHOD'];
@@ -60,14 +58,6 @@ include_once 'page_header.php';
 			<?php } ?>
 			<input name="course_id" type="hidden"
 						value="<?php echo $courseid; ?>"/>
-			<div class="form-group">
-				<label for="schedule" class="col-sm-4 control-label">Institute</label>
-				<div class="col-sm-8">
-					<input name="schedule" id="courseName" type="text"
-						value="<?php echo $institute; ?>" placeholder="Course Name"
-						class="form-control input-lg" readonly/>
-				</div>
-			</div>
 			<div class="form-group">
 				<label for="schedule" class="col-sm-4 control-label">Course</label>
 				<div class="col-sm-8">

@@ -14,20 +14,43 @@ $instituteDropDown = "";
 $attendee = "";
 $flag = false;
 
+$method = $_SERVER ['REQUEST_METHOD'];
+if ($method === 'POST') {
+	$message = "Good";
+
+	$Data = str_getcsv($_POST["attendee"], "\n"); //parse the rows
+	$flag = false;
+	$qry = "INSERT INTO course_attendance (course_attendance_people_id, course_attendance_course_id) VALUES ";
+	foreach($Data as &$Row) {
+		if( $flag ) {
+			$qry .= ",";
+		} else {
+			$flag = true;
+		}
+		$qry .= "($Row, $sid)";
+	}
+	
+	
+	if ( db_update( $conn, $qry ) ) {
+		$message = "Institute created successfully.";
+	} else {
+		$message = "System error: Try again.";
+	}
+}
+
+
 if ($sid == - 1) {
 	$options = "<tr><td colspan=3>No institute selected.</td></tr>";
 } else {
-	$result = db_select ( $conn, "SELECT i.institute_name, c.course_name, s.course_schedule_datetime 
-			FROM institute i, course c, course_schedule s 
-			WHERE i.institute_id = c.course_institute_id 
-			AND c.course_id = s.course_schedule_course_id AND s.course_schedule_id = $sid" );
+	$result = db_select ( $conn, "SELECT c.course_name, s.course_schedule_datetime 
+			FROM course c, course_schedule s 
+			WHERE c.course_id = s.course_schedule_course_id AND s.course_schedule_id = $sid" );
 	if (isset ( $result )) {
 		$counter = 0;
 		$selected = "";
 		while ( $row = mysqli_fetch_row ( $result ) ) {
-			$institute = $row [0];
-			$course = $row [1];
-			$datetime = $row [2];
+			$course = $row [0];
+			$datetime = $row [1];
 		}
 	}
 }
@@ -35,7 +58,7 @@ if ($sid == - 1) {
 
 include_once 'page_header.php';
 ?>
-<form id="Form1" method="post" action="" id="ctl01" role="form"
+<form id="Form1" method="post" action="?sid=<?php echo $sid;?>" id="ctl01" role="form"
 	class="form-horizontal minHt">
 
 	<div class="panel panel-primary">
@@ -53,14 +76,6 @@ include_once 'page_header.php';
 			<input name="sid" id="sid" type="hidden"
 						value="<?php echo $sid; ?>"/>
 			<div class="form-group">
-				<label for="schedule" class="col-sm-4 control-label">Institute</label>
-				<div class="col-sm-8">
-					<input name="schedule" id="courseName" type="text"
-						value="<?php echo $institute; ?>" placeholder="Course Name"
-						class="form-control input-lg" readonly/>
-				</div>
-			</div>
-			<div class="form-group">
 				<label for="schedule" class="col-sm-4 control-label">Course</label>
 				<div class="col-sm-8">
 					<input name="schedule" id="courseName" type="text"
@@ -77,7 +92,7 @@ include_once 'page_header.php';
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="courseDesc" class="col-sm-4 control-label">Attendee List</label>
+				<label for="attendee" class="col-sm-4 control-label">Attendee List</label>
 				<div class="col-sm-8">
 					<textarea name="attendee" id="attendee"
 						class="form-control input-lg"><?php echo $attendee; ?></textarea>
