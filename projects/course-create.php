@@ -16,7 +16,6 @@ if ($method === 'POST') {
 	} else {
 		$message = "System error: Try again.";
 	}
-
 }
 
 db_close($conn);
