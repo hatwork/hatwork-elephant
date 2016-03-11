@@ -8,10 +8,8 @@ $options = "";
 $information = "";
 $message = "";
 $conn = db_connect ();
-$institute = "No institute selected.";
 $courseName = "";
 $datetime = "";
-$instituteDropDown = "";
 $attendee = "";
 $flag = false;
 $enrolled = "No student enrolled.";
@@ -37,7 +35,7 @@ if ($course == - 1) {
 		}
 	
 		if ( db_update( $conn, $qry ) ) {
-			$message = "Institute created successfully.";
+			$message = "Students added to course.";
 		} else {
 			$message = "System error: Try again.";
 		}

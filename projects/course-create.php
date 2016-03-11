@@ -2,17 +2,16 @@
 include_once 'common.php';
 
 $description = isset ( $_POST ["description"] ) ? $_POST ["description"] : "";
-$instName = isset ( $_POST ["instName"] ) ? $_POST ["instName"] : "";
+$courseName = isset ( $_POST ["courseName"] ) ? $_POST ["courseName"] : "";
 $message = "";
-$instituteDropDown = "";
 
 $conn = db_connect ();
 $method = $_SERVER ['REQUEST_METHOD'];
 if ($method === 'POST') {
 	$message = "Good";
 	
-	if ( db_update( $conn, "INSERT INTO course (course_name, course_desc, course_status) VALUES ('$instName', '$description', 0)" ) ) {
-		$message = "Institute created successfully.";
+	if ( db_update( $conn, "INSERT INTO course (course_name, course_desc, course_status) VALUES ('$courseName', '$description', 0)" ) ) {
+		$message = "Course created successfully.";
 	} else {
 		$message = "System error: Try again.";
 	}
@@ -38,10 +37,10 @@ include_once 'page_header.php';
 			</div>
 			<?php } ?>
 			<div class="form-group">
-				<label for="instName" class="col-sm-4 control-label">Course Name</label>
+				<label for="courseName" class="col-sm-4 control-label">Course Name</label>
 				<div class="col-sm-8">
-					<input name="instName" id="instName" type="text"
-						value="<?php echo $instName; ?>" placeholder="Course Name"
+					<input name="courseName" id="courseName" type="text"
+						value="<?php echo $courseName; ?>" placeholder="Course Name"
 						class="form-control input-lg" />
 				</div>
 			</div>

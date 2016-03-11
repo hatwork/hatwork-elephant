@@ -5,8 +5,6 @@ $options = "";
 $information = "";
 $message = "";
 $conn = db_connect ();
-$institute = "No institute selected.";
-$instituteDropDown = "";
 
 $result = db_select ( $conn, "select * from course" );
 if (isset ( $result )) {

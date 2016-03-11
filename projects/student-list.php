@@ -21,9 +21,6 @@ if (isset ( $result )) {
 		<td>$name</td>
 		<td>$email</td>
 		<td>$mobile</td>
-		<td><a href='schedule-list.php?course=$id'>List Schedules</a>&nbsp;|&nbsp;
-		<a href='schedule-create.php?course=$id'>Create Schedule</a>&nbsp;|&nbsp;
-		<a href='course-student.php?course=$id'>Add Students</a>
 		</td>
 		</tr>";
 	}
@@ -55,7 +52,6 @@ include_once 'page_header.php';
 							<th>Name</th>
 							<th>Email</th>
 							<th>Mobile</th>
-							<th>Schedules</th>
 						</tr>
 					<?php echo $options;?>
 				</table>

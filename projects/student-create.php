@@ -22,7 +22,7 @@ if ($method === 'POST') {
 	
 	if ( db_update( $conn, "INSERT INTO people (people_name, people_itsid, people_email, people_pwd, people_mobile, people_role) 
 			VALUES ('$name', $itsid, '$email', '$password' ,$mobile, 0)" ) ) {
-		$message = "Institute created successfully.";
+		$message = "Student created successfully.";
 	} else {
 		$message = "System error: Try again.";
 	}

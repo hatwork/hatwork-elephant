@@ -16,7 +16,7 @@ if ($cid == - 1) {
 	$options = "<tr><td colspan=3>No course selected.</td></tr>";
 } else {
 	
-	$result = db_select ( $conn, "SELECT course_name FROM course WHERE course_id = $cid" );
+	$result = db_select ( $conn, "SELECT c.course_name FROM course c WHERE c.course_id = $cid" );
 	if (isset ( $result )) {
 		$counter = 0;
 		$selected = "";

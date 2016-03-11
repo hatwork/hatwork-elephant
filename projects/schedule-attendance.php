@@ -7,10 +7,8 @@ $options = "";
 $information = "";
 $message = "";
 $conn = db_connect ();
-$institute = "No institute selected.";
 $course = "";
 $datetime = "";
-$instituteDropDown = "";
 $attendee = "";
 $flag = false;
 
@@ -32,7 +30,7 @@ if ($method === 'POST') {
 	
 	
 	if ( db_update( $conn, $qry ) ) {
-		$message = "Institute created successfully.";
+		$message = "Attendance marked.";
 	} else {
 		$message = "System error: Try again.";
 	}
@@ -40,7 +38,7 @@ if ($method === 'POST') {
 
 
 if ($sid == - 1) {
-	$options = "<tr><td colspan=3>No institute selected.</td></tr>";
+	$options = "<tr><td colspan=3>No course selected.</td></tr>";
 } else {
 	$result = db_select ( $conn, "SELECT c.course_name, s.course_schedule_datetime 
 			FROM course c, course_schedule s 
