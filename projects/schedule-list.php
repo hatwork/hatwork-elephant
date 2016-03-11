@@ -15,27 +15,15 @@ $course = "";
 if ($cid == - 1) {
 	$options = "<tr><td colspan=3>No course selected.</td></tr>";
 } else {
-	
+
 	$result = db_select ( $conn, "SELECT course_name FROM course WHERE course_id = $cid" );
 	if (isset ( $result )) {
-		$counter = 0;
-		$selected = "";
-		while ( $row = mysqli_fetch_row ( $result ) ) {
-			$course = $row [0];
-		}
-	}
-	
-	
-	$result = db_select ( $conn, "select course_name from course WHERE course_id = $cid" );
-	if (isset ( $result )) {
 		$row = mysqli_fetch_row ( $result );
-		$cname = $row [0];
+		$course = $row [0];
 	}
-	
+
 	$result = db_select ( $conn, "select * from course_schedule where course_schedule_course_id = $cid" );
-	
 	if (isset ( $result )) {
-		
 		$counter = 0;
 		while ( $row = mysqli_fetch_row ( $result ) ) {
 			$id = $row [0];
@@ -61,19 +49,19 @@ include_once 'page_header.php';
 			<h3 class="panel-title">Course Schedule</h3>
 		</div>
 		<div class="panel-body">
-		<?php if( strlen( $message ) > 0) { ?>
+			<?php if( strlen( $message ) > 0) { ?>
 			<div class="form-group">
 				<div class="alert alert-warning">
-				<?php echo $message; ?>
+					<?php echo $message; ?>
 				</div>
 			</div>
-		<?php } ?>
+			<?php } ?>
 			<div class="form-group">
 				<label for="schedule" class="col-sm-4 control-label">Course</label>
 				<div class="col-sm-8">
 					<input name="schedule" id="courseName" type="text"
 						value="<?php echo $course; ?>" placeholder="Course Name"
-						class="form-control input-lg" readonly/>
+						class="form-control input-lg" readonly />
 				</div>
 			</div>
 			<div class="form-group">
@@ -84,8 +72,8 @@ include_once 'page_header.php';
 							<th>Name</th>
 							<th>Schedules</th>
 						</tr>
-					<?php echo $options;?>
-				</table>
+						<?php echo $options;?>
+					</table>
 				</div>
 			</div>
 		</div>
